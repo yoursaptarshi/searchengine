@@ -1,0 +1,22 @@
+.parent_Nav_container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.left_nav_container{
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgb(255, 255, 199),rgb(255, 204, 108));
+}
+.right_nav_container{
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgb(255, 255, 199),rgb(255, 204, 108));
+}
+.parent_Nav_container Link{
+    color:aliceblue;
+    text-decoration: none;
+}
