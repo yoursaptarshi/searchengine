@@ -1,0 +1,42 @@
+.chat_main_container{
+    height:90vh;
+    width:90vw;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.chat_main_container .chat_results{
+    height:80vh;
+    width:80vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    overflow-y: scroll;
+}
+.chat_main_container .chats{
+    background-color: bisque;
+    min-height: 5vh;
+    margin: 1vh;
+    border-radius: 1vh;
+    padding: 1vh;
+    width: fit-content;
+    min-width: 15vw;
+}
+.chat_main_container .chat_input_container{
+    display: flex
+}
+.chat_main_container .chat_input_container .chat_input_box input{
+    height: 2vh;
+    padding:1vh;
+    width:70vw
+}
+.chat_main_container .chat_input_container .chat_submit_btn button{
+    height: 4vh;
+    padding:1vh;
+    width:30vw;
+    background-color: tomato;
+}
