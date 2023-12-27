@@ -5,7 +5,7 @@ export const createMembership= (membershipName,membershipPrice,membershipDescrip
         dispatch({
             type:"createMembershipReuest"
         })
-        await axios.post("/api/v1/create-memberships",{membership_name:membershipName,membership_price:membershipPrice,membership_description:membershipDescription})
+        await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/create-memberships",{membership_name:membershipName,membership_price:membershipPrice,membership_description:membershipDescription})
         dispatch({
             type:"createMembershipSuccess"
         })
@@ -22,7 +22,7 @@ export const allMemberships =()=>async(dispatch)=>{
         dispatch({
             type:"GetAllMembershipsRequest"
         })
-       const {data} = await axios.get("/api/v1/all-memberships")
+       const {data} = await axios.get("https://search-engine-backend-k1bs.onrender.com/api/v1/all-memberships")
        dispatch({
         type:"GetAllMembershipsSuccess",
         payload:data.all_memberships
@@ -43,7 +43,7 @@ export const buyMembership = (membership)=>async (dispatch)=>{
         
         const stripe = await loadStripe('pk_test_51K7jzHSEu1sDfKjEHqOo5sOaKQEqcwEiaYWwnc1oofaq5q0V45uWPvIS2DYLRf7YqeorI57Man6bxwUpUyyL7Sgh00bUwajwHw');
         
-        const response = await axios.post("/api/v1/buy-membership",{membership_name:membership});
+        const response = await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/buy-membership",{membership_name:membership});
         
         
         if(response){
@@ -57,7 +57,7 @@ export const buyMembership = (membership)=>async (dispatch)=>{
                 console.error('Error redirecting to checkout:', stripeSession.error);
               }
               else{
-                await axios.post("/api/v1/update-membership",{membership_name:membership});
+                await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/update-membership",{membership_name:membership});
                 
                 dispatch({
                     type:"buyMembershipSuccess"
@@ -80,12 +80,3 @@ export const buyMembership = (membership)=>async (dispatch)=>{
         
     }
 }
-
-
-//when we do axios.get we get many properties data is one of them.
-// data: The payload returned by the server, typically containing the requested information.
-// status: The HTTP status code of the response (e.g., 200, 404, 500).
-// statusText: The HTTP status message corresponding to the status code (e.g., OK, Not Found, Internal Server Error).
-// headers: An object containing the response headers.
-// config: The configuration object used to make the request.
-// request: The XMLHttpRequest object or equivalent in Node.js, providing information about the request and allowing manipulation of the request if needed.
