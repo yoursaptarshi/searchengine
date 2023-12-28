@@ -6,7 +6,7 @@ dispatch({
     type:"LoginRequest",
 });
 
-const {data}=await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/signin",{username,password}
+const {data}=await axios.post("/api/v1/signin",{username,password}
 );
 dispatch({
     type:"LoginSuccess",
@@ -27,7 +27,7 @@ export const registerUser = (name,username,email,password)=>async(dispatch)=>{
         dispatch({
             type:"RegisterRequest",
         });
-        const {data}= await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/register",{name,username,email,password});
+        const {data}= await axios.post("/api/v1/register",{name,username,email,password});
         dispatch({
             type:"RegisterSuccess",
             payload:data.user,
@@ -46,7 +46,7 @@ export const loadUser =()=> async(dispatch)=>{
         dispatch({
             type:"LoadUserRequest",
         })
-        const {data} = await axios.get("https://search-engine-backend-k1bs.onrender.com/api/v1/me");
+        const {data} = await axios.get("/api/v1/me");
     
         dispatch({
             type:"LoadUserSuccess",
@@ -63,7 +63,7 @@ export const loadUser =()=> async(dispatch)=>{
 
 export const logout=()=>async(dispatch)=>{
     try {
-         await axios.get("https://search-engine-backend-k1bs.onrender.com/api/v1/logout");
+         await axios.get("/api/v1/logout");
 
         dispatch({
             type:"LogoutUserSuccess",
@@ -81,7 +81,7 @@ try {
     dispatch({
         type:"UpdateNameRequest"
     })
-    const {data} = await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/update/name",{newName:name});
+    const {data} = await axios.post("/api/v1/update/name",{newName:name});
     dispatch({
         type:"UpdateNameSuccess",
         payload:data.user
@@ -101,7 +101,7 @@ export const updateuserName = (username) => async(dispatch)=>{
         dispatch({
             type:"UpdateuserNameRequest"
         })
-        const {user} = await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/update/username",{username})
+        const {user} = await axios.post("/api/v1/update/username",{username})
         dispatch({
             type:"UpdateuserNameSuccess",
             payload:user.data
@@ -122,7 +122,7 @@ export const uploadPhoto = (image)=>async(dispatch)=>{
         })
         const formData = new FormData();
         formData.append('user_photo', image);
-       const {data} = await axios.post("https://search-engine-backend-k1bs.onrender.com/api/v1/upload",formData
+       const {data} = await axios.post("/api/v1/upload",formData
     )
         dispatch({
             type:"UploadPhotoSuccess",
@@ -147,7 +147,7 @@ export const adminuser=()=>async(dispatch)=>{
         dispatch({
             type:"AdminUserRequest"
         })
-        const {data} = await axios.get("https://search-engine-backend-k1bs.onrender.com/api/v1/me");
+        const {data} = await axios.get("/api/v1/me");
         dispatch({
             type:"AdminUserSuccess",
             payload:data.user.isadmin
@@ -167,7 +167,7 @@ export const getallusers=()=>async(dispatch)=>{
         dispatch({
             type:"GetAllUserRequest"
         })
-        const {data} = await axios.get("https://search-engine-backend-k1bs.onrender.com/api/v1/allusers")
+        const {data} = await axios.get("/api/v1/allusers")
         dispatch({
             type:"GetAllUserSuccess",
             payload:data.users
