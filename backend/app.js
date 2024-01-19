@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors")
 const app = express();
 app.use(cors());
-require("dotenv").config({path:"../backend/config/config.env"})
+//require("dotenv").config({path:"../backend/config/config.env"})
 
 
 //using middlewares
