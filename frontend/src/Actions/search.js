@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const searchQuery = (query)=> async(dispatch)=>{
     try {
-        const response = await axios.post("/api/v1/search",{query});
+        const response = await axios.post("https://samanta-search.onrender.com/api/v1/search",{query});
         const data = await response.data;
         
         
@@ -26,7 +26,7 @@ export const crawl = (url)=>async(dispatch)=>{
             type:"CrawlRequest"
         })
         
-        await axios.post("/api/v1/crawl",{url})
+        await axios.post("https://samanta-search.onrender.com/api/v1/crawl",{url})
       dispatch({
         type:"CrawlSuccess",
         
