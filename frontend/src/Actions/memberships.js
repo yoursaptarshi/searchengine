@@ -5,7 +5,7 @@ export const createMembership= (membershipName,membershipPrice,membershipDescrip
         dispatch({
             type:"createMembershipReuest"
         })
-        await axios.post("https://samanta-search.onrender.com/api/v1/create-memberships",{membership_name:membershipName,membership_price:membershipPrice,membership_description:membershipDescription})
+        await axios.post("/api/v1/create-memberships",{membership_name:membershipName,membership_price:membershipPrice,membership_description:membershipDescription})
         dispatch({
             type:"createMembershipSuccess"
         })
@@ -22,7 +22,7 @@ export const allMemberships =()=>async(dispatch)=>{
         dispatch({
             type:"GetAllMembershipsRequest"
         })
-       const {data} = await axios.get("https://samanta-search.onrender.com/api/v1/all-memberships")
+       const {data} = await axios.get("/api/v1/all-memberships")
        dispatch({
         type:"GetAllMembershipsSuccess",
         payload:data.all_memberships
@@ -43,7 +43,7 @@ export const buyMembership = (membership)=>async (dispatch)=>{
         
         const stripe = await loadStripe('pk_test_51K7jzHSEu1sDfKjEHqOo5sOaKQEqcwEiaYWwnc1oofaq5q0V45uWPvIS2DYLRf7YqeorI57Man6bxwUpUyyL7Sgh00bUwajwHw');
         
-        const response = await axios.post("https://samanta-search.onrender.com/api/v1/buy-membership",{membership_name:membership});
+        const response = await axios.post("/api/v1/buy-membership",{membership_name:membership});
         
         
         if(response){
@@ -57,7 +57,7 @@ export const buyMembership = (membership)=>async (dispatch)=>{
                 console.error('Error redirecting to checkout:', stripeSession.error);
               }
               else{
-                await axios.post("https://samanta-search.onrender.com/api/v1/update-membership",{membership_name:membership});
+                await axios.post("/api/v1/update-membership",{membership_name:membership});
                 
                 dispatch({
                     type:"buyMembershipSuccess"
