@@ -5,6 +5,8 @@ const memberships = require("./routes/memberships")
 const cookieParser = require("cookie-parser");
 const cors = require("cors")
 const app = express();
+
+const path = require("path");
 app.use(cors());
 //require("dotenv").config({path:"../backend/config/config.env"})
 
