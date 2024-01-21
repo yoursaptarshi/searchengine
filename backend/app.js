@@ -17,19 +17,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
-app.use((req, res, next) => {
-    let data = '';
-    req.setEncoding('utf8');
-    
-    req.on('data', (chunk) => {
-        data += chunk;
-    });
-
-    req.on('end', () => {
-        req.rawBody = data;
-        next();
-    });
-});
 
 //using routes
 app.use("/api/v1",user);
