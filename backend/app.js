@@ -8,7 +8,7 @@ const app = express();
 
 const path = require("path");
 app.use(cors());
-//require("dotenv").config({path:"../backend/config/config.env"})
+
 
 
 //using middlewares
@@ -16,6 +16,20 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+
+app.use((req, res, next) => {
+    let data = '';
+    req.setEncoding('utf8');
+    
+    req.on('data', (chunk) => {
+        data += chunk;
+    });
+
+    req.on('end', () => {
+        req.rawBody = data;
+        next();
+    });
+});
 
 //using routes
 app.use("/api/v1",user);
