@@ -154,10 +154,10 @@ exports.updateMembership = async (req, res) => {
         }
     } catch (error) {
         // Handle other errors
-        console.error('Error updating membership:', error.message);
+        
         res.status(500).json({
             success: false,
-            message: "Internal server error",
+            message: error.message,
         });
     }
 };
