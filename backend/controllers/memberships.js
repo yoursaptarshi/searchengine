@@ -1,6 +1,7 @@
 const Memberships = require("../models/memberships")
 const User = require("../models/User")
 const stripe = require("stripe")('sk_test_51K7jzHSEu1sDfKjEmDI8SkdTNPtVwLKs6uWBIQ03oSyirkFiPwISB1qvw8TNco9dWq0Hsq3XRvtKb8vntXzfevTj00HoSeukc6')
+const jwt = require("jsonwebtoken");
 exports.createMembership = async (req, res) => {
     const { membership_name } = req.body
     const { membership_price } = req.body;
