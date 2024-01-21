@@ -127,7 +127,7 @@ exports.updateMembership = async (req, res) => {
         
         const sig = req.headers['stripe-signature'];
         let event;
-
+        const body=req.rawBody;
         try {
             
             event = stripe.webhooks.constructEvent(req.rawBody, sig, 'whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8');
@@ -135,7 +135,7 @@ exports.updateMembership = async (req, res) => {
             //whsec_d9b0cc47c810a6254a6bfb0c65731fdf82f5c43e46ceb24ddc949f575dd78e5a
         } catch (err) {
             console.error('Webhook error:', err.message);
-            return res.status(400).json({ success: false, message: `Webhook Error: ${err.message}` });
+            return res.status(400).json({ success: false, message: `Webhook Error: ${err.message},boddy:body` });
         }
         
         if (event.type === 'checkout.session.completed') {
