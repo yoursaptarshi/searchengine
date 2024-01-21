@@ -1,7 +1,7 @@
 const Memberships = require("../models/memberships")
 const User = require("../models/User")
 const stripe = require("stripe")('sk_test_51K7jzHSEu1sDfKjEmDI8SkdTNPtVwLKs6uWBIQ03oSyirkFiPwISB1qvw8TNco9dWq0Hsq3XRvtKb8vntXzfevTj00HoSeukc6')
-const jwt = require("jsonwebtoken");
+
 exports.createMembership = async (req, res) => {
     const { membership_name } = req.body
     const { membership_price } = req.body;
@@ -120,9 +120,8 @@ exports.updateMembership = async (req, res) => {
     try {
         
         const { membership_name } = req.body;
-        const {token} = req.cookies;
-        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findOne(decoded._id);
+        
+        const user = await User.findOne(req.user._id);
         const membership = await Memberships.findOne({ membership_name: membership_name });
         
         const sig = req.headers['stripe-signature'];
