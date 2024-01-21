@@ -71,3 +71,6 @@
     display: flex;
     
 }
+.profile_main button:hover{
+    cursor: pointer;
+}
