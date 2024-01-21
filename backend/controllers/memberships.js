@@ -119,7 +119,9 @@ exports.updateMembership = async (req, res) => {
     try {
         
         const { membership_name } = req.body;
-        const user = await User.findOne(req.user._id);
+        const {token} = req.cookies;
+        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findOne(decoded._id);
         const membership = await Memberships.findOne({ membership_name: membership_name });
         
         const sig = req.headers['stripe-signature'];
