@@ -54,87 +54,115 @@ exports.buyMembership = async (req, res) => {
     try {
         const { membership_name } = req.body;
         const user = await User.findOne(req.user._id);
-        const membership = await Memberships.findOne({ membership_name: membership_name })
-        if(!membership){
-            res.status(401).json({
-                success:false,
-                message:"no membership found"
-            })
-        }
-        if (user.membership == membership.membership_name) {
-            res.status(400).json({
+        const membership = await Memberships.findOne({ membership_name: membership_name });
+
+        if (!membership) {
+            return res.status(401).json({
                 success: false,
-                message: "you already have the membership",
-            })
+                message: "No membership found",
+            });
         }
-        else {
-            //stripe session
-            const stripeSession = await stripe.checkout.sessions.create({
-                
-                payment_method_types: ['card'],
-                line_items:[{
-                     price_data: {
+
+        if (user.membership === membership.membership_name) {
+            return res.status(400).json({
+                success: false,
+                message: "You already have the membership",
+            });
+        }
+
+        // Check if the user already has an active Checkout session
+        if (user.stripeCheckoutSessionId) {
+            return res.status(200).json({
+                success: true,
+                sessionId: user.stripeCheckoutSessionId,
+            });
+        }
+
+        // Create a new Checkout session
+        const stripeSession = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [{
+                price_data: {
                     currency: 'inr',
                     product_data: {
                         name: membership.membership_name,
                         description: membership.membership_description,
                     },
-                    unit_amount: membership.membership_price * 100
+                    unit_amount: membership.membership_price * 100,
                 },
                 quantity: 1,
             }],
-               
-                mode: 'payment',
-                success_url: 'http://localhost:3000/profile', // Redirect URL after successful payment
-                cancel_url: 'http://localhost:3000/plans',
-            })
-            const sessionId = stripeSession.id;
-            
-           res.status(200).json({
-            success:true,
-            sessionId:sessionId
-           })
-           user.membership = membership.membership_name;
-        await user.save();
-        
+            mode: 'payment',
+            success_url: 'https://samanta-search.onrender.com/profile', // Redirect URL after successful payment
+            cancel_url: 'https://samanta-search.onrender.com/plans',
+        });
 
-        }
+        // Save the session ID to the user in your database
+        user.stripeCheckoutSessionId = stripeSession.id;
+        await user.save();
+
+        // Respond with the session ID
+        res.status(200).json({
+            success: true,
+            sessionId: stripeSession.id,
+        });
     } catch (error) {
+        console.error('Error in buyMembership:', error.message);
         res.status(500).json({
             success: false,
             message: error.message,
-            
-        })
+        });
     }
-}
-exports.updateMembership = async(req,res)=>{
-    const { membership_name } = req.body;
-        const user = await User.findOne(req.user._id);
-        const membership = await Memberships.findOne({ membership_name: membership_name })
+};
 
-        const sig = req.headers['stripe-signature'];
-
-        let event;
+exports.updateMembership = async (req, res) => {
     try {
-        event = stripe.webhooks.constructEvent(req.rawBody, sig, 'whsec_d9b0cc47c810a6254a6bfb0c65731fdf82f5c43e46ceb24ddc949f575dd78e5a');
-    } catch (err) {
-        console.error('Webhook error:', err.message);
-        return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
-    if (event.type === 'checkout.session.completed') {
-       // const session = event.data.object;
-        user.membership = membership.membership_name;
-        await user.save();
-        res.status(200).json({
-            success: true,
-            message: "Bought new membership",
-            
+        
+        const { membership_name } = req.body;
+        const user = await User.findOne(req.user._id);
+        const membership = await Memberships.findOne({ membership_name: membership_name });
+        
+        const sig = req.headers['stripe-signature'];
+        let event;
 
-        })
+        try {
+            
+            event = stripe.webhooks.constructEvent(req.rawBody, sig, 'whsec_d9b0cc47c810a6254a6bfb0c65731fdf82f5c43e46ceb24ddc949f575dd78e5a');
+            
+        } catch (err) {
+            console.error('Webhook error:', err.message);
+            return res.status(400).json({ success: false, message: `Webhook Error: ${err.message}` });
+        }
+        
+        if (event.type === 'checkout.session.completed') {
+            // Handle successful payment
+            user.membership = membership.membership_name;
+            await user.save();
+            
+            res.status(200).json({
+                success: true,
+                message: "Bought new membership",
+            });
+        } else {
+            // Handle other webhook events
+            
+            res.status(200).json({
+                success: true,
+                message: "Webhook received successfully",
+            });
+        }
+    } catch (error) {
+        // Handle other errors
+        console.error('Error updating membership:', error.message);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
     }
-    
-    
-}
+};
+
+
+
 exports.check_membership_level = async (req, res) => {
 
     try {
