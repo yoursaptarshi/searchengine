@@ -60,14 +60,16 @@ try{
     let data = '';
 console.log(2);
   req.on('data', chunk => {
+    console.log(chunk);
       data += chunk;
   });
 console.log(3);
   req.on('end', () => {
       req.rawBody = data;
+    console.log(data);
       next();
   });
-  console.log(4);
+  
 }
 catch(error){
   res.status(500).json({
