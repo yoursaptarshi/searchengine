@@ -124,10 +124,11 @@ exports.updateMembership = async (req, res) => {
     try {
         
         
-        console.log(6);
+        console.log(req.client_reference_id);
         const user = await User.findOne(req.client_reference_id);
-        console.log(7);
-        const  membership_name = req.metadata.membership_name;
+        
+        
+        const  membership_name = req.data.object.metadata.membership_name;
         const membership = await Memberships.findOne({ membership_name: membership_name });
         console.log(8);
         const sig = req.headers['stripe-signature'];
