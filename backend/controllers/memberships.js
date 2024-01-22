@@ -127,6 +127,7 @@ exports.updateMembership = async (req, res) => {
         console.log(6);
         const user = await User.findOne(req.client_reference_id);
         console.log(7);
+        const  membership_name = req.metadata.membership_name;
         const membership = await Memberships.findOne({ membership_name: membership_name });
         console.log(8);
         const sig = req.headers['stripe-signature'];
@@ -153,7 +154,7 @@ const header = stripe.webhooks.generateTestHeaderString({
             return res.status(400).json({ success: false, message: `Webhook Error: ${err.message}` });
         }
         console.log(event);
-        const  membership_name = req.metadata.membership_name;
+        
         if (event.type === 'checkout.session.completed') {
             // Handle successful payment
             console.log(13);
