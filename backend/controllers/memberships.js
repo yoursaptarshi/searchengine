@@ -97,6 +97,9 @@ exports.buyMembership = async (req, res) => {
             success_url: 'https://samanta-search.onrender.com/profile', // Redirect URL after successful payment
             cancel_url: 'https://samanta-search.onrender.com/plans',
             client_reference_id: user._id.toString(),
+            metadata: {
+                membership_name: membership_name,
+            },
         });
 
         // Save the session ID to the user in your database
@@ -120,7 +123,7 @@ exports.buyMembership = async (req, res) => {
 exports.updateMembership = async (req, res) => {
     try {
         console.log(5);
-        const { membership_name } = req.body;
+        const { membership_name } = req.body.metadata;
         console.log(6);
         const user = await User.findOne(req.client_reference_id);
         console.log(7);
