@@ -12,9 +12,9 @@ router.route("/all-memberships").get(isAuthenticated,allMemberships)
 router.route("/buy-membership").post(isAuthenticated,buyMembership)
 router.route("/check-membership-level").get(isAuthenticated,check_membership_level)
 // Define the middleware
-router.use("/update-membership", getRawBody);
+//router.use("/update-membership", getRawBody);
 
 // Define the route handling
-router.route("/update-membership").post(updateMembership);
+router.route("/update-membership").post(getRawBody,updateMembership);
 
 module.exports = router
