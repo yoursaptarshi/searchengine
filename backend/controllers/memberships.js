@@ -127,13 +127,13 @@ exports.updateMembership = async (req, res) => {
         const membership = await Memberships.findOne({ membership_name: membership_name });
         console.log(8);
         const sig = req.headers['stripe-signature'];
-        console.log(9);
+        console.log(sig);
         let event;
         const payload = req.body;
         console.log(10);
         try {
             console.log(11);
-            event = stripe.webhooks.constructEvent(req.body, sig, 'whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8');
+            event = stripe.webhooks.constructEvent(JSON.stringify(req.body), sig, 'whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8');
             //whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8
             //whsec_d9b0cc47c810a6254a6bfb0c65731fdf82f5c43e46ceb24ddc949f575dd78e5a
         } catch (err) {
