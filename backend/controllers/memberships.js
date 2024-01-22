@@ -130,10 +130,19 @@ exports.updateMembership = async (req, res) => {
         console.log(sig);
         let event;
         const payload = req.body;
+        const payloadString = JSON.stringify(payload, null, 2);
+const secret = 'whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8';
+
+const header = stripe.webhooks.generateTestHeaderString({
+  payload: payloadString,
+  secret,
+});
+
+const event = stripe.webhooks.constructEvent(payloadString, header, secret);
         console.log(10);
         try {
             console.log(11);
-            event = stripe.webhooks.constructEvent(JSON.stringify(req.body), sig, 'whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8');
+            event = stripe.webhooks.constructEvent(payloadString, header, secret);
             //whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8
             //whsec_d9b0cc47c810a6254a6bfb0c65731fdf82f5c43e46ceb24ddc949f575dd78e5a
         } catch (err) {
