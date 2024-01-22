@@ -55,26 +55,27 @@ exports.isAdmin = async (req,res,next)=>{
 }
 
 exports.getRawBody = (req, res, next) => {
-try{
-  console.log(1);
+  try {
+    console.log(1);
     let data = '';
-console.log(2);
-  req.on('data', chunk => {
-    console.log(chunk);
+    console.log(2);
+
+    req.on('data', chunk => {
+      console.log('Received data chunk:', chunk);
       data += chunk;
-  });
-console.log(3);
-  req.on('end', () => {
+    });
+
+    req.on('end', () => {
+      console.log('Request body fully received. Data:', data);
       req.rawBody = data;
-    console.log(data);
       next();
-  });
-  
-}
-catch(error){
-  res.status(500).json({
-      success:false,
+    });
+
+    console.log(3);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
       message: error.message
-    })
-}
-}
+    });
+  }
+};
