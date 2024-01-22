@@ -14,19 +14,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Move the raw body capture middleware after body-parsing middleware
-app.use((req, res, next) => {
-    req.rawBody = '';
-    req.setEncoding('utf8');
-
-    req.on('data', (chunk) => {
-        req.rawBody += chunk;
-    });
-
-    req.on('end', () => {
-        next();
-    });
-});
 
 // Using routes
 app.use("/api/v1", user);
