@@ -55,7 +55,8 @@ exports.isAdmin = async (req,res,next)=>{
 }
 
 exports.getRawBody = (req, res, next) => {
-  let data = '';
+try{
+    let data = '';
 
   req.on('data', chunk => {
       data += chunk;
@@ -65,4 +66,11 @@ exports.getRawBody = (req, res, next) => {
       req.rawBody = data;
       next();
   });
+}
+catch(error){
+  res.status(500).json({
+      success:false,
+      message: error.message
+    })
+}
 }
