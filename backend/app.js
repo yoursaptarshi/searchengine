@@ -18,19 +18,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
 
-app.use(function(req, res, next) {
-  req.rawBody = '';
-  req.setEncoding('utf8');
+app.use((req, res, next) => {
+    req.rawBody = '';
+    req.setEncoding('utf8');
 
-  req.on('data', function(chunk) { 
-    req.rawBody += chunk;
-  });
+    req.on('data', (chunk) => { 
+        req.rawBody += chunk;
+    });
 
-  req.on('end', function() {
-    next();
-  });
+    req.on('end', () => {
+        next();
+    });
 });
-app.use(express.bodyParser());
 
 //using routes
 app.use("/api/v1",user);
