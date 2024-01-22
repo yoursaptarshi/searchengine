@@ -15,6 +15,6 @@ router.route("/check-membership-level").get(isAuthenticated,check_membership_lev
 //router.use("/update-membership", getRawBody);
 
 // Define the route handling
-router.route("/update-membership").post(getRawBody,updateMembership);
+router.route("/update-membership").post(updateMembership);
 
 module.exports = router
