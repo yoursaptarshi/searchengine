@@ -119,17 +119,20 @@ exports.buyMembership = async (req, res) => {
 
 exports.updateMembership = async (req, res) => {
     try {
-        
+        console.log(5);
         const { membership_name } = req.body;
-        
+        console.log(6);
         const user = await User.findOne(req.client_reference_id);
+        console.log(7);
         const membership = await Memberships.findOne({ membership_name: membership_name });
-        
+        console.log(8);
         const sig = req.headers['stripe-signature'];
+        console.log(9);
         let event;
         const payload = req.body;
+        console.log(10);
         try {
-            
+            console.log(11);
             event = stripe.webhooks.constructEvent(req.rawBody, sig, 'whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8');
             //whsec_dxUOg47TuAKwmmnjEbu5fe2s22Go6Nl8
             //whsec_d9b0cc47c810a6254a6bfb0c65731fdf82f5c43e46ceb24ddc949f575dd78e5a
@@ -137,12 +140,14 @@ exports.updateMembership = async (req, res) => {
             console.error('Webhook error:', err.message);
             return res.status(400).json({ success: false, message: `Webhook Error: ${err.message}` });
         }
-        
+        console.log(12);
         if (event.type === 'checkout.session.completed') {
             // Handle successful payment
+            console.log(13);
             user.membership = membership.membership_name;
+            console.log(14);
             await user.save();
-            
+            console.log(15);
             res.status(200).json({
                 success: true,
                 message: "Bought new membership",
