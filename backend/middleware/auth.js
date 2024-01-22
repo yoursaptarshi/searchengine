@@ -60,7 +60,7 @@ exports.getRawBody = (req, res, next) => {
     let data = '';
     console.log(2);
 
-    req.on('data', chunk => {
+    req.on('data', (chunk) => {
       console.log('Received data chunk:', chunk);
       data += chunk;
     });
@@ -70,7 +70,10 @@ exports.getRawBody = (req, res, next) => {
       req.rawBody = data;
       next();
     });
-
+    req.on('error', (err) => {
+ 
+  console.error('Error in request:', err.message);
+});
     console.log(3);
   } catch (error) {
     res.status(500).json({
