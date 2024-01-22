@@ -1,21 +1,10 @@
 const express = require("express")
 const {createMembership,allMemberships, buyMembership, check_membership_level, updateMembership} = require("../controllers/memberships")
-const {isAuthenticated,isAdmin}=require("../middleware/auth")
+const {isAuthenticated,isAdmin,getRawBody}=require("../middleware/auth")
 const cors = require('cors');
 const router =express.Router();
 
-const getRawBody = (req, res, next) => {
-    let data = '';
 
-    req.on('data', chunk => {
-        data += chunk;
-    });
-
-    req.on('end', () => {
-        req.rawBody = data;
-        next();
-    });
-}
 
 router.route("/create-memberships").post(isAdmin,createMembership)
 router.route("/all-memberships").get(isAuthenticated,allMemberships)
