@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 800px;
+    min-height: 90vh;
 }
 
 .main_signin{
@@ -65,4 +65,36 @@
 .button_signin button:hover{
     background-image: linear-gradient(rgb(44, 44, 151),rgb(0, 0, 90));
 
+}
+@media only screen and (max-width: 900px) {
+    .signin_main {
+        min-height: auto;
+    }
+
+    .main_signin {
+        width: 80%;
+    }
+
+    .main_signin input {
+        padding-left: 20px;
+    }
+
+    .username_text,
+    .password_text {
+        min-width: 100px;
+    }
+
+    .button_signin button {
+        min-width: 120px;
+    }
+
+    .button_wrapper {
+        margin-top: 20px;
+        margin-bottom: 10%;
+    }
+
+    .username_wrapper,
+    .password_wrapper {
+        margin-bottom: 10%;
+    }
 }
