@@ -1,7 +1,7 @@
 /* home.css */
 
 .home_wrapper {
-    max-width: 100%!important;
+    max-width: 90vw !important;
   }
   
   .home_searchResults {
@@ -30,6 +30,7 @@
   .mapsearchResults {
     min-width: 30%;
     padding-right: 10%;
+    display: none;
   }
   
   .websearchResults h4,
@@ -166,6 +167,7 @@
 @media only screen and (max-width: 900px) {
     .home_wrapper {
         display: grid;
+        max-width: 90vw;
     }
 
     .home_container {
@@ -199,6 +201,7 @@
     .home_searchbaricon_map button {
         min-width: 80%;
         margin-top: 10px;
+        width: 20vw;
     }
 
     .home_navBar {
@@ -207,7 +210,7 @@
 
     .home_navBar button {
         margin: 15px 5px;
-        height:;
+        
         width: 15vw;
         border-radius: 4vw;
     }
@@ -240,7 +243,7 @@
     .websearchResults,
     .imagesearchResults,
     .mapsearchResults {
-        min-width: 80%;
-        padding-right: 0;
+        max-width: 80vw;
+        
     }
 }
