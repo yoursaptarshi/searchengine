@@ -74,3 +74,64 @@
 .profile_main button:hover{
     cursor: pointer;
 }
+
+@media only screen and (max-width: 900px) {
+    .profile_main .profile_parent {
+        height: auto!important;
+        width: auto!important;
+    }
+
+    .profile_main .profile_page_profile_components {
+        height: 90vh!important;
+        width: 80vw!important;
+        padding: 5vh 0;
+    }
+
+    .profile_main .input_box input {
+        width: 60vw;
+    }
+
+    .profile_main .text p {
+        font-size: 3vw;
+    }
+
+    .profile_main button {
+        height: 6vw;
+        width: 20vw;
+    }
+
+    .profile_main img {
+        height: 20vh;
+        width: 40vw;
+        border-radius: 50vh;
+    }
+
+    .profile_main #profile_photo_input {
+        margin-bottom: 2vh;
+    }
+
+    .profile_main #profile_photo_input input {
+        background-image: linear-gradient(45deg, rgb(0, 0, 255), rgb(0, 0, 119));
+    }
+
+    .profile_main .profile_name_wrapper,
+    .profile_main .profile_username_wrapper,
+    .profile_main .profile_email_wrapper,
+    .profile_main .profile_plan_wrapper {
+        flex-direction: column;
+    }
+
+    .profile_main .profle_name_input,
+    .profile_main .profle_username_input,
+    .profile_main .profle_email_input {
+        margin-bottom: 1vh;
+    }
+
+    .profile_main .profile_plan_wrapper {
+        align-items: center;
+    }
+
+    .profile_main .profile_plan_wrapper input {
+        width: 60vw;
+    }
+}
