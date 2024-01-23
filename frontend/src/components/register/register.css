@@ -93,3 +93,38 @@
     background-image: linear-gradient(rgb(75, 75, 255),rgb(0, 0, 152));
     cursor: pointer;
 }
+
+@media only screen and (max-width: 900px) {
+    .main {
+        min-height: auto;
+    }
+
+    .register_wrapper {
+        width: 80%;
+    }
+
+    .register_wrapper input {
+        padding-left: 20px;
+    }
+
+    .register_wrapper .name_text,
+    .register_wrapper .email_text,
+    .register_wrapper .gender_text,
+    .register_wrapper .dob_text {
+        min-width: 120px;
+    }
+
+    .button_wrapper_register {
+        margin-top: 20px;
+        margin-bottom: 10%;
+    }
+
+    .name_wrapper,
+    .username_wrapper,
+    .email_wrapper,
+    .gender_wrapper,
+    .dob_wrapper,
+    .password_wrapper {
+        margin-bottom: 10%;
+    }
+}
