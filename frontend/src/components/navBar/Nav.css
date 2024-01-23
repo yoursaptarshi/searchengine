@@ -27,3 +27,16 @@
     color:aliceblue;
     text-decoration: none;
 }
+
+@media (max-width: 900px) {
+    .parent_Nav_container {
+        flex-direction: column;
+    }
+
+    .left_nav_container,
+    .right_nav_container {
+        min-width: auto;
+        width: 100%;
+        margin-bottom: 1vw; /* Add some spacing between the containers */
+    }
+}
