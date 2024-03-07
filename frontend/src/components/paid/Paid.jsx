@@ -6,7 +6,7 @@ const Paid = () => {
 
  
 
-const ENDPOINT = 'http://localhost:4000/'
+const ENDPOINT = 'https://samanta-search.onrender.com/'
 const socket = socketIO(ENDPOINT,{transports:['websocket']})
 
 const[messages,setMessage]=useState([]);
